@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Python Practice Dashboard — Chethan K Anand</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Inter', sans-serif; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+  .pulse-dot { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .fade-in { animation: fade 0.4s ease-out; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .bar-fill { transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+</style>
+</head>
+<body class="bg-neutral-950 text-neutral-200 min-h-screen">
+
+<div class="max-w-6xl mx-auto p-4 md:p-8">
+
+  <!-- Header -->
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 pb-6 border-b border-neutral-800">
+    <div class="flex items-center gap-4">
+      <div class="w-14 h-14 rounded-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center text-xl font-bold text-black">CK</div>
+      <div>
+        <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+          Python Practice Dashboard
+          <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+        </h1>
+        <p class="text-sm text-neutral-400">Chethan K Anand · CSE Undergraduate · BNMIT</p>
+        <p class="text-xs text-neutral-500">Problem Solving & Skill Development</p>
+      </div>
+    </div>
+    <div class="mt-4 md:mt-0 text-right">
+      <div class="text-xs text-neutral-500">Last active</div>
+      <div class="text-sm text-green-400 font-mono" id="today"></div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8" id="stats"></div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <!-- Skills -->
+    <div class="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+      <div class="flex items-center gap-2 mb-5">
+        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        <h2 class="text-white font-semibold">Skill Progress</h2>
+      </div>
+      <div id="skills"></div>
+    </div>
+
+    <!-- Activity -->
+    <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+      <div class="flex items-center gap-2 mb-4">
+        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12h3l3-9 4 18 3-9h5"/></svg>
+        <h2 class="text-white font-semibold">This Week</h2>
+      </div>
+      <div class="flex items-end justify-between gap-2 h-40 px-1" id="chart"></div>
+      <div class="text-xs text-neutral-500 mt-3">11 problems · 5-day streak</div>
+    </div>
+  </div>
+
+  <!-- Problem Log -->
+  <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 mb-8">
+    <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+        <h2 class="text-white font-semibold">Problem Log</h2>
+      </div>
+      <div class="flex gap-1 text-xs" id="filters">
+        <button data-f="All" class="filter-btn px-3 py-1 rounded bg-green-500/20 text-green-400">All</button>
+        <button data-f="Solved" class="filter-btn px-3 py-1 rounded text-neutral-500 hover:text-neutral-300">Solved</button>
+        <button data-f="Attempted" class="filter-btn px-3 py-1 rounded text-neutral-500 hover:text-neutral-300">Attempted</button>
+      </div>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-xs text-neutral-500 uppercase tracking-wider border-b border-neutral-800">
+            <th class="text-left py-2 pr-4">Problem</th>
+            <th class="text-left py-2 pr-4">Difficulty</th>
+            <th class="text-left py-2 pr-4">Status</th>
+            <th class="text-left py-2">Key Learning</th>
+          </tr>
+        </thead>
+        <tbody id="problems"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Notes -->
+    <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+      <div class="flex items-center gap-2 mb-4">
+        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <h2 class="text-white font-semibold">Learning Notes</h2>
+      </div>
+      <ul class="space-y-2.5" id="notes"></ul>
+    </div>
+
+    <!-- Roadmap -->
+    <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+      <div class="flex items-center gap-2 mb-4">
+        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+        <h2 class="text-white font-semibold">Roadmap</h2>
+      </div>
+      <div id="roadmap"></div>
+    </div>
+  </div>
+
+  <div class="text-center text-xs text-neutral-600 pt-4 border-t border-neutral-800">
+    Tracking since Week 1 · Updated manually · Built with HTML + Tailwind
+  </div>
+</div>
+
+<script>
+const data = {
+  stats: [
+    { label: "Solved", value: 11, suffix: "", color: "text-green-400", icon: "M5 13l4 4L19 7" },
+    { label: "Attempted", value: 16, suffix: "", color: "text-green-400", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" },
+    { label: "Streak", value: 5, suffix: " d", color: "text-orange-400", icon: "M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.24 17 7.343 19 9 19 11 19 12a8 8 0 01-1.343 6.657z" },
+    { label: "Active Days", value: 9, suffix: "", color: "text-green-400", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
+    { label: "Acceptance", value: 68.7, suffix: "%", color: "text-green-400", icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" }
+  ],
+  skills: [
+    { name: "Python Basics", value: 82, sub: "Syntax, loops, functions, OOP basics" },
+    { name: "Data Structures", value: 46, sub: "Lists, dicts, sets — trees queued" },
+    { name: "Algorithms", value: 28, sub: "Two-pointer, hashing intro" },
+    { name: "Problem Solving", value: 54, sub: "Pattern recognition improving" }
+  ],
+  problems: [
+    { name: "Two Sum", diff: "Easy", status: "Solved", note: "Hashmap → O(n) vs brute O(n²)" },
+    { name: "Reverse String", diff: "Easy", status: "Solved", note: "Two-pointer in-place swap" },
+    { name: "Valid Parentheses", diff: "Easy", status: "Solved", note: "Stack-based matching" },
+    { name: "Palindrome Number", diff: "Easy", status: "Solved", note: "Reverse half, avoid str cast" },
+    { name: "Merge Sorted Array", diff: "Easy", status: "Solved", note: "Backward pointer to skip shifts" },
+    { name: "Best Time to Buy/Sell Stock", diff: "Easy", status: "Solved", note: "Track min-so-far, single pass" },
+    { name: "Contains Duplicate", diff: "Easy", status: "Solved", note: "Set length comparison" },
+    { name: "FizzBuzz", diff: "Easy", status: "Solved", note: "Modulo chaining cleanup" },
+    { name: "Roman to Integer", diff: "Easy", status: "Solved", note: "Lookup + subtractive rule" },
+    { name: "Plus One", diff: "Easy", status: "Solved", note: "Carry propagation edge case" },
+    { name: "Climbing Stairs", diff: "Easy", status: "Solved", note: "DP → Fibonacci recurrence" },
+    { name: "Group Anagrams", diff: "Medium", status: "Attempted", note: "Sorted-key grouping, retrying" },
+    { name: "Longest Substring w/o Repeat", diff: "Medium", status: "Attempted", note: "Sliding window — WIP" },
+    { name: "Product of Array Except Self", diff: "Medium", status: "Attempted", note: "Prefix/suffix trick" },
+    { name: "3Sum", diff: "Medium", status: "Attempted", note: "Sort + two-pointer" },
+    { name: "Top K Frequent", diff: "Medium", status: "Attempted", note: "Heap vs bucket sort" }
+  ],
+  notes: [
+    "Time complexity: O(n) hash lookups beat O(n²) nested loops on large inputs",
+    "Python dicts/sets → O(1) average membership checks vs O(n) for lists",
+    "List comprehensions are faster than equivalent for-loops (CPython overhead)",
+    "Two-pointer and sliding window solve most array subproblems efficiently",
+    "Edge cases first: empty input, single element, duplicates, negatives"
+  ],
+  roadmap: [
+    { week: "Week 1", title: "Python Fundamentals", status: "done", detail: "Syntax, data types, control flow, functions" },
+    { week: "Week 2", title: "Lists, Dicts, Sets", status: "active", detail: "Comprehensions, hashing, mutability" },
+    { week: "Week 3", title: "Problem-Solving Patterns", status: "queued", detail: "Two-pointer, sliding window, prefix sums" },
+    { week: "Week 4", title: "Medium Challenges", status: "queued", detail: "Graphs intro, recursion, DP basics" }
+  ],
+  activity: [
+    { day: "Mon", solved: 2 }, { day: "Tue", solved: 1 }, { day: "Wed", solved: 3 },
+    { day: "Thu", solved: 2 }, { day: "Fri", solved: 1 }, { day: "Sat", solved: 2 }, { day: "Sun", solved: 0 }
+  ]
+};
+
+// Today
+document.getElementById("today").textContent = "Today · " + new Date().toLocaleDateString();
+
+// Stats
+document.getElementById("stats").innerHTML = data.stats.map(s => `
+  <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4 hover:border-green-500/40 transition fade-in">
+    <div class="flex items-center justify-between mb-2">
+      <span class="text-xs text-neutral-400 uppercase tracking-wider">${s.label}</span>
+      <svg class="w-4 h-4 ${s.color}" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="${s.icon}"/></svg>
+    </div>
+    <div class="text-3xl font-bold text-white">${s.value}<span class="text-neutral-500 text-lg">${s.suffix}</span></div>
+  </div>
+`).join("");
+
+// Skills
+document.getElementById("skills").innerHTML = data.skills.map(s => `
+  <div class="mb-4">
+    <div class="flex justify-between items-baseline mb-1">
+      <div>
+        <div class="text-sm text-white font-medium">${s.name}</div>
+        <div class="text-xs text-neutral-500">${s.sub}</div>
+      </div>
+      <span class="text-sm text-green-400 font-mono">${s.value}%</span>
+    </div>
+    <div class="h-2 bg-neutral-800 rounded-full overflow-hidden">
+      <div class="bar-fill h-full bg-gradient-to-r from-green-600 to-green-400 rounded-full" style="width:0%" data-w="${s.value}"></div>
+    </div>
+  </div>
+`).join("");
+setTimeout(() => document.querySelectorAll(".bar-fill").forEach(b => b.style.width = b.dataset.w + "%"), 100);
+
+// Chart
+const maxS = Math.max(...data.activity.map(a => a.solved), 1);
+document.getElementById("chart").innerHTML = data.activity.map(a => `
+  <div class="flex flex-col items-center flex-1 gap-1.5 h-full justify-end">
+    <div class="text-xs text-neutral-400 font-mono">${a.solved || ""}</div>
+    <div class="w-full rounded-t ${a.solved > 0 ? 'bg-green-500' : 'bg-neutral-800'}" style="height:${(a.solved / maxS) * 100}%; min-height:4px; transition: height 1s ease-out;"></div>
+    <div class="text-xs text-neutral-500">${a.day}</div>
+  </div>
+`).join("");
+
+// Problems
+function renderProblems(filter) {
+  const list = data.problems.filter(p => filter === "All" ? true : p.status === filter);
+  document.getElementById("problems").innerHTML = list.map(p => `
+    <tr class="border-b border-neutral-800/50 hover:bg-neutral-800/30 fade-in">
+      <td class="py-3 pr-4 text-white font-medium">${p.name}</td>
+      <td class="py-3 pr-4"><span class="text-xs px-2 py-0.5 rounded font-medium ${p.diff === 'Easy' ? 'text-green-400 bg-green-500/10' : 'text-yellow-400 bg-yellow-500/10'}">${p.diff}</span></td>
+      <td class="py-3 pr-4"><span class="text-xs px-2 py-0.5 rounded font-medium ${p.status === 'Solved' ? 'text-green-400 bg-green-500/10' : 'text-neutral-400 bg-neutral-500/10'}">${p.status === 'Solved' ? '✓ Solved' : '◷ Practicing'}</span></td>
+      <td class="py-3 text-neutral-400 text-xs">${p.note}</td>
+    </tr>
+  `).join("");
+}
+renderProblems("All");
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => {
+      b.className = "filter-btn px-3 py-1 rounded text-neutral-500 hover:text-neutral-300";
+    });
+    btn.className = "filter-btn px-3 py-1 rounded bg-green-500/20 text-green-400";
+    renderProblems(btn.dataset.f);
+  });
+});
+
+// Notes
+document.getElementById("notes").innerHTML = data.notes.map(n => `
+  <li class="flex gap-2 text-sm text-neutral-300">
+    <svg class="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+    <span>${n}</span>
+  </li>
+`).join("");
+
+// Roadmap
+document.getElementById("roadmap").innerHTML = data.roadmap.map((r, i) => `
+  <div class="flex gap-3">
+    <div class="flex flex-col items-center">
+      <div class="w-3 h-3 rounded-full ${r.status === 'done' ? 'bg-green-400' : r.status === 'active' ? 'bg-green-400 ring-4 ring-green-500/20 pulse-dot' : 'bg-neutral-700'}"></div>
+      ${i < data.roadmap.length - 1 ? '<div class="w-px flex-1 bg-neutral-800 my-1"></div>' : ''}
+    </div>
+    <div class="pb-3 flex-1">
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-neutral-500 font-mono">${r.week}</span>
+        ${r.status === 'done' ? '<span class="text-xs text-green-400">✓ done</span>' : ''}
+        ${r.status === 'active' ? '<span class="text-xs text-green-400">● in progress</span>' : ''}
+      </div>
+      <div class="text-sm font-medium ${r.status === 'queued' ? 'text-neutral-500' : 'text-white'}">${r.title}</div>
+      <div class="text-xs text-neutral-500 mt-0.5">${r.detail}</div>
+    </div>
+  </div>
+`).join("");
+</script>
+</body>
+</html>
