@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HackerRank | ChethanKAnand</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<style>
+  body { font-family: 'Inter', sans-serif; background:#0a0a0a; color:#d1d5db; }
+  .font-mono, code, pre { font-family: 'JetBrains Mono', monospace; }
+  .fade-in { animation: fade .3s ease-out; }
+  @keyframes fade { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
+  .bar-fill { transition: width 1s cubic-bezier(.22,1,.36,1); }
+  .heat-cell { width: 11px; height: 11px; border-radius: 2px; }
+  .heat-0 { background: #161b22; }
+  .heat-1 { background: #0e4429; }
+  .heat-2 { background: #006d32; }
+  .heat-3 { background: #26a641; }
+  .heat-4 { background: #39d353; }
+  pre[class*=language-] { background:#0d1117 !important; border-radius:0 !important; font-size:13px; margin:0 !important; }
+  .nav-link:hover { color: #00ea64; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<nav class="bg-[#1c1c1c] border-b border-neutral-800 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-14">
+    <div class="flex items-center gap-6">
+      <a href="#/" class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded bg-[#00ea64] flex items-center justify-center text-black font-black text-lg">&gt;</div>
+        <span class="text-white font-bold text-lg tracking-tight">HackerRank</span>
+      </a>
+      <div class="hidden md:flex items-center gap-5 text-sm text-neutral-300">
+        <a href="#/" class="nav-link text-white font-medium border-b-2 border-[#00ea64] pb-4 pt-4">Prepare</a>
+        <a href="#" class="nav-link pb-4 pt-4">Certify</a>
+        <a href="#" class="nav-link pb-4 pt-4">Compete</a>
+        <a href="#" class="nav-link pb-4 pt-4">Jobs</a>
+        <a href="#" class="nav-link pb-4 pt-4">Leaderboard</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="hidden md:flex items-center bg-[#0a0a0a] border border-neutral-700 rounded px-3 py-1.5 text-sm">
+        <svg class="w-4 h-4 text-neutral-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" placeholder="Search problems..." class="bg-transparent outline-none w-48 text-neutral-300 placeholder-neutral-600">
+      </div>
+      <button class="relative text-neutral-400 hover:text-white">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+        <span class="absolute -top-1 -right-1 w-2 h-2 bg-[#00ea64] rounded-full"></span>
+      </button>
+      <div class="flex items-center gap-2 pl-4 border-l border-neutral-700">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#00ea64] to-green-700 flex items-center justify-center text-black font-bold text-xs">CK</div>
+        <span class="hidden md:block text-sm text-neutral-200 font-medium">ChethanKAnand</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main id="view" class="max-w-7xl mx-auto px-4 py-6 fade-in"></main>
+
+<footer class="max-w-7xl mx-auto px-4 py-8 text-center text-xs text-neutral-600 border-t border-neutral-900 mt-8">
+  <div>© 2026 HackerRank · Terms · Privacy · Support</div>
+  <div class="mt-1">Logged in as ChethanKAnand · BNMIT (2025–2029)</div>
+</footer>
+
+<script>
+const PROFILE = {
+  handle: "ChethanKAnand",
+  name: "Chethan K Anand",
+  college: "BNM Institute of Technology, Bengaluru",
+  degree: "B.E. Computer Science & Engineering",
+  year: "1st Year · 2nd Semester",
+  usn: "1BG25CS***",
+  joined: "Feb 27, 2026",
+  country: "India",
+  rank: 142857,
+  points: 342,
+  badges: ["Problem Solving (Basic)", "Python (Basic)", "30 Days of Code"]
+};
+
+const PROBLEMS = [
+  { slug:"py-hello-world", title:'Say "Hello, World!" With Python', sub:"Introduction", diff:"Easy", max:5, score:5, date:"2026-02-27", time:"20:14", attempts:1,
+    desc:`Here is a sample line of code that can be executed in Python:\n  print("Hello, World!")\n\nYou can just as easily store a string as a variable and then print it to stdout.\n\nTask: Read a full line of input from stdin and save it to a variable. Then print "Hello, World!" to stdout.\n\nSample Output: Hello, World!`,
+    code:`if __name__ == '__main__':\n    print("Hello, World!")` },
+
+  { slug:"py-if-else", title:"Python If-Else", sub:"Introduction", diff:"Easy", max:10, score:10, date:"2026-02-28", time:"19:47", attempts:1,
+    desc:`Given an integer n, perform the following conditional actions:\n• If n is odd, print Weird\n• If n is even and in the inclusive range of 2 to 5, print Not Weird\n• If n is even and in the inclusive range of 6 to 20, print Weird\n• If n is even and greater than 20, print Not Weird\n\nConstraints: 1 ≤ n ≤ 100`,
+    code:`#!/bin/python3\nimport math, os, random, re, sys\n\nif __name__ == '__main__':\n    n = int(input().strip())\n\n    if n % 2 != 0:\n        print("Weird")\n    elif 2 <= n <= 5:\n        print("Not Weird")\n    elif 6 <= n <= 20:\n        print("Weird")\n    else:\n        print("Not Weird")` },
+
+  { slug:"py-arithmetic-operators", title:"Arithmetic Operators", sub:"Introduction", diff:"Easy", max:10, score:10, date:"2026-03-01", time:"16:22", attempts:1,
+    desc:`Read two integers from STDIN and print three lines where:\n1. The first line contains the sum of the two numbers.\n2. The second line contains the difference.\n3. The third line contains the product.\n\nConstraints: 1 ≤ a ≤ 10^10, 1 ≤ b ≤ 10^10`,
+    code:`if __name__ == '__main__':\n    a = int(input())\n    b = int(input())\n\n    print(a + b)\n    print(a - b)\n    print(a * b)` },
+
+  { slug:"py-division", title:"Python: Division", sub:"Introduction", diff:"Easy", max:10, score:10, date:"2026-03-02", time:"21:03", attempts:1,
+    desc:`The provided code stub reads two integers, a and b, from STDIN.\nAdd logic to print two lines:\n1. Integer division result (a // b)\n2. Float division result (a / b)\n\nNo rounding or formatting is required.`,
+    code:`if __name__ == '__main__':\n    a = int(input())\n    b = int(input())\n\n    print(a // b)\n    print(a / b)` },
+
+  { slug:"py-loops", title:"Loops", sub:"Introduction", diff:"Easy", max:10, score:10, date:"2026-03-03", time:"20:55", attempts:1,
+    desc:`The provided code stub reads an integer, n, from STDIN.\nFor all non-negative integers i < n, print i².\n\nSample Input: 5\nSample Output:\n0\n1\n4\n9\n16`,
+    code:`if __name__ == '__main__':\n    n = int(input())\n    for i in range(n):\n        print(i * i)` },
+
+  { slug:"py-write-a-function", title:"Write a function", sub:"Introduction", diff:"Medium", max:10, score:10, date:"2026-03-05", time:"22:11", attempts:2,
+    desc:`A leap year contains a leap day. In the Gregorian calendar, three conditions identify leap years:\n• Year divisible by 4 is a leap year, UNLESS...\n• Year also divisible by 100 is NOT a leap year, UNLESS...\n• Year is also divisible by 400, then it IS a leap year.\n\nTask: Given a year, determine whether it is a leap year. Return True or False.`,
+    code:`def is_leap(year):\n    leap = False\n\n    # divisible by 4 AND (not by 100 OR by 400)\n    if year % 4 == 0:\n        if year % 100 == 0:\n            if year % 400 == 0:\n                leap = True\n        else:\n            leap = True\n\n    return leap\n\nyear = int(input())\nprint(is_leap(year))` },
+
+  { slug:"py-print", title:"Print Function", sub:"Introduction", diff:"Easy", max:10, score:10, date:"2026-03-07", time:"11:32", attempts:1,
+    desc:`Read an integer n.\nWithout using any string methods, try to print the following: 123...n\nNote: "..." represents consecutive values in between.\n\nExample: n = 5  →  print 12345`,
+    code:`if __name__ == '__main__':\n    n = int(input())\n    for i in range(1, n + 1):\n        print(i, end='')` },
+
+  { slug:"py-list-comprehensions", title:"List Comprehensions", sub:"Basic Data Types", diff:"Easy", max:10, score:10, date:"2026-03-09", time:"21:18", attempts:2,
+    desc:`You are given three integers x, y and z representing the dimensions of a cuboid along with an integer n.\nPrint a list of all possible coordinates (i, j, k) on a 3D grid where the sum i + j + k is NOT equal to n.\n\nConstraints: 0 ≤ x, y, z, n ≤ 7`,
+    code:`if __name__ == '__main__':\n    x = int(input())\n    y = int(input())\n    z = int(input())\n    n = int(input())\n\n    result = [[i, j, k]\n              for i in range(x + 1)\n              for j in range(y + 1)\n              for k in range(z + 1)\n              if i + j + k != n]\n    print(result)` },
+
+  { slug:"py-find-runner-up", title:"Find the Runner-Up Score!", sub:"Basic Data Types", diff:"Easy", max:10, score:10, date:"2026-03-10", time:"22:04", attempts:1,
+    desc:`Given the participants' score sheet for your University Sports Day, find the runner-up score.\nYou are given n scores. Store them in a list and find the runner-up score.\n\nConstraints: 2 ≤ n ≤ 10, -100 ≤ A[i] ≤ 100`,
+    code:`if __name__ == '__main__':\n    n = int(input())\n    arr = list(map(int, input().split()))\n\n    # drop duplicates, sort descending, pick 2nd\n    unique_sorted = sorted(set(arr), reverse=True)\n    print(unique_sorted[1])` },
+
+  { slug:"py-nested-lists", title:"Nested Lists", sub:"Basic Data Types", diff:"Easy", max:10, score:10, date:"2026-03-13", time:"20:42", attempts:3,
+    desc:`Given the names and grades for each student in a class of n students, store them in a nested list and print the name(s) of any student(s) having the SECOND LOWEST grade.\nIf multiple students share the second lowest grade, order their names alphabetically and print each on a new line.`,
+    code:`if __name__ == '__main__':\n    students = []\n    for _ in range(int(input())):\n        name = input()\n        score = float(input())\n        students.append([name, score])\n\n    # second lowest UNIQUE score\n    unique_scores = sorted({s[1] for s in students})\n    second_lowest = unique_scores[1]\n\n    # names at that score, alphabetized\n    names = sorted(s[0] for s in students if s[1] == second_lowest)\n    for name in names:\n        print(name)` },
+
+  { slug:"py-finding-percentage", title:"Finding the percentage", sub:"Basic Data Types", diff:"Easy", max:10, score:10, date:"2026-03-15", time:"19:28", attempts:1,
+    desc:`The provided code stub reads a dictionary of name:[marks] for a list of students.\nPrint the average of the marks for the queried student, rounded to 2 decimal places.`,
+    code:`if __name__ == '__main__':\n    n = int(input())\n    student_marks = {}\n    for _ in range(n):\n        name, *line = input().split()\n        scores = list(map(float, line))\n        student_marks[name] = scores\n\n    query_name = input()\n    marks = student_marks[query_name]\n    avg = sum(marks) / len(marks)\n    print(f"{avg:.2f}")` },
+
+  { slug:"py-lists", title:"Lists", sub:"Basic Data Types", diff:"Easy", max:10, score:10, date:"2026-03-17", time:"21:50", attempts:2,
+    desc:`Consider a list (list = []). Perform commands: insert i e, print, remove e, append e, sort, pop, reverse.\nInitialize your list and read n followed by n lines of commands. Iterate and perform each operation.`,
+    code:`if __name__ == '__main__':\n    N = int(input())\n    lst = []\n\n    for _ in range(N):\n        cmd = input().split()\n        op = cmd[0]\n\n        if op == "insert":\n            lst.insert(int(cmd[1]), int(cmd[2]))\n        elif op == "print":\n            print(lst)\n        elif op == "remove":\n            lst.remove(int(cmd[1]))\n        elif op == "append":\n            lst.append(int(cmd[1]))\n        elif op == "sort":\n            lst.sort()\n        elif op == "pop":\n            lst.pop()\n        elif op == "reverse":\n            lst.reverse()` },
+
+  { slug:"py-tuples", title:"Tuples", sub:"Basic Data Types", diff:"Easy", max:10, score:10, date:"2026-03-19", time:"22:33", attempts:1,
+    desc:`Given an integer n and n space-separated integers, compute and print hash(t), where t is a tuple of those integers.\n\nNote: hash() is in the __builtins__ module.`,
+    code:`if __name__ == '__main__':\n    n = int(input())\n    integer_list = map(int, input().split())\n\n    t = tuple(integer_list)\n    print(hash(t))` },
+
+  { slug:"py-swap-case", title:"sWAP cASE", sub:"Strings", diff:"Easy", max:10, score:10, date:"2026-03-21", time:"15:41", attempts:1,
+    desc:`Given a string, swap the cases of every letter. Lowercase becomes uppercase and vice versa.\n\nExample: "HackerRank.com presents Pythonist 2" → "hACKERrANK.COM PRESENTS pYTHONIST 2"`,
+    code:`def swap_case(s):\n    # .swapcase() flips every letter's case\n    return s.swapcase()\n\nif __name__ == '__main__':\n    s = input()\n    result = swap_case(s)\n    print(result)` },
+
+  { slug:"py-split-and-join", title:"String Split and Join", sub:"Strings", diff:"Easy", max:10, score:10, date:"2026-03-22", time:"14:08", attempts:1,
+    desc:`In Python, a string can be split on a delimiter and joined back with any separator.\nGiven a string, split on space and join back using '-'.\n\nExample: "this is a string" → "this-is-a-string"`,
+    code:`def split_and_join(line):\n    # split on spaces, rejoin with '-'\n    return "-".join(line.split())\n\nif __name__ == '__main__':\n    line = input()\n    result = split_and_join(line)\n    print(result)` },
+
+  { slug:"py-whats-your-name", title:"What's Your Name?", sub:"Strings", diff:"Easy", max:10, score:10, date:"2026-03-24", time:"20:12", attempts:1,
+    desc:`You are given first and last name on two different lines. Print:\nHello firstname lastname! You just delved into python.`,
+    code:`def print_full_name(first, last):\n    print(f"Hello {first} {last}! You just delved into python.")\n\nif __name__ == '__main__':\n    first_name = input()\n    last_name = input()\n    print_full_name(first_name, last_name)` },
+
+  { slug:"py-mutations", title:"Mutations", sub:"Strings", diff:"Easy", max:10, score:10, date:"2026-03-26", time:"21:24", attempts:2,
+    desc:`Strings in Python are IMMUTABLE — you cannot change them in place. To modify a string, create a new one.\nRead a string, change the character at the given index, and print the result.`,
+    code:`def mutate_string(string, position, character):\n    # slice & rebuild since strings are immutable\n    return string[:position] + character + string[position + 1:]\n\nif __name__ == '__main__':\n    s = input()\n    i, c = input().split()\n    s_new = mutate_string(s, int(i), c)\n    print(s_new)` },
+
+  { slug:"py-find-a-string", title:"Find a string", sub:"Strings", diff:"Easy", max:10, score:10, date:"2026-03-28", time:"22:51", attempts:2,
+    desc:`Given a string and a substring, count how many times the substring occurs in the string.\nTraversal is left → right. Overlapping occurrences count.\n\nExample: "ABCDCDC", "CDC" → 2`,
+    code:`def count_substring(string, sub_string):\n    count = 0\n    sub_len = len(sub_string)\n\n    # sliding window — allow overlaps\n    for i in range(len(string) - sub_len + 1):\n        if string[i:i + sub_len] == sub_string:\n            count += 1\n    return count\n\nif __name__ == '__main__':\n    string = input().strip()\n    sub_string = input().strip()\n    count = count_substring(string, sub_string)\n    print(count)` },
+
+  { slug:"py-string-validators", title:"String Validators", sub:"Strings", diff:"Easy", max:10, score:10, date:"2026-03-30", time:"20:06", attempts:1,
+    desc:`Python has built-in string validators. Given a string, print True if at least one character satisfies each of:\n• isalnum()\n• isalpha()\n• isdigit()\n• islower()\n• isupper()\nElse print False for that check.`,
+    code:`if __name__ == '__main__':\n    s = input()\n\n    print(any(c.isalnum() for c in s))\n    print(any(c.isalpha() for c in s))\n    print(any(c.isdigit() for c in s))\n    print(any(c.islower() for c in s))\n    print(any(c.isupper() for c in s))` },
+
+  { slug:"py-text-alignment", title:"Text Alignment", sub:"Strings", diff:"Easy", max:10, score:10, date:"2026-03-31", time:"22:44", attempts:3,
+    desc:`In Python, strings can be aligned using ljust(), rjust() and center().\nReplace the placeholders in the stub so that the output produces an 'H' logo of the given thickness.`,
+    code:`thickness = int(input())\nc = 'H'\n\n# Top cone\nfor i in range(thickness):\n    print((c * i).rjust(thickness - 1) + c + (c * i).ljust(thickness - 1))\n\n# Top pillars\nfor i in range(thickness + 1):\n    print((c * thickness).center(thickness * 2) + (c * thickness).center(thickness * 6))\n\n# Middle belt\nfor i in range((thickness + 1) // 2):\n    print((c * thickness * 5).center(thickness * 6))\n\n# Bottom pillars\nfor i in range(thickness + 1):\n    print((c * thickness).center(thickness * 2) + (c * thickness).center(thickness * 6))\n\n# Bottom cone\nfor i in range(thickness):\n    print(((c * (thickness - i - 1)).rjust(thickness)\n           + c\n           + (c * (thickness - i - 1)).ljust(thickness)).rjust(thickness * 6))` },
+
+  { slug:"py-text-wrap", title:"Text Wrap", sub:"Strings", diff:"Easy", max:10, score:10, date:"2026-04-02", time:"21:17", attempts:1,
+    desc:`You are given a string S and width w. Wrap the string into a paragraph of width w.\nUse the textwrap module from the standard library.`,
+    code:`import textwrap\n\ndef wrap(string, max_width):\n    # textwrap.fill returns a single wrapped string\n    return textwrap.fill(string, max_width)\n\nif __name__ == '__main__':\n    string, max_width = input(), int(input())\n    result = wrap(string, max_width)\n    print(result)` },
+
+  { slug:"py-door-mat", title:"Designer Door Mat", sub:"Strings", diff:"Easy", max:10, score:10, date:"2026-04-04", time:"11:58", attempts:2,
+    desc:`Design a door mat of N × M with:\n• Pattern '.|.' repeated symmetrically\n• 'WELCOME' centered\n• Dashes '-' filling the rest\n\nN is odd, M = 3 × N.`,
+    code:`n, m = map(int, input().split())\n\n# top half — increasing pattern\nfor i in range(1, n, 2):\n    print((".|." * i).center(m, "-"))\n\n# middle\nprint("WELCOME".center(m, "-"))\n\n# bottom half — decreasing pattern\nfor i in range(n - 2, -1, -2):\n    print((".|." * i).center(m, "-"))` },
+
+  { slug:"py-string-formatting", title:"String Formatting", sub:"Strings", diff:"Easy", max:10, score:10, date:"2026-04-05", time:"16:33", attempts:1,
+    desc:`Given an integer n, print the decimal, octal, hexadecimal (uppercase) and binary representations for values 1 to n.\nEach should be right-aligned with width equal to the binary representation of n.`,
+    code:`def print_formatted(number):\n    # column width = length of binary representation of n\n    width = len(bin(number)[2:])\n    for i in range(1, number + 1):\n        print(\n            str(i).rjust(width),\n            oct(i)[2:].rjust(width),\n            hex(i)[2:].upper().rjust(width),\n            bin(i)[2:].rjust(width)\n        )\n\nif __name__ == '__main__':\n    n = int(input())\n    print_formatted(n)` },
+
+  { slug:"py-alphabet-rangoli", title:"Alphabet Rangoli", sub:"Strings", diff:"Easy", max:20, score:20, date:"2026-04-07", time:"21:42", attempts:3,
+    desc:`Given an integer n, print an alphabet rangoli of size n.\nRangoli is a form of Indian folk art. Uses lowercase letters a..z, separated by '-', centered with '-' padding.`,
+    code:`import string\n\ndef print_rangoli(size):\n    letters = string.ascii_lowercase\n    lines = []\n\n    # build top half\n    for i in range(size):\n        s = "-".join(letters[i:size])\n        # mirror + center-pad with dashes\n        lines.append((s[::-1] + s[1:]).center(4 * size - 3, "-"))\n\n    # bottom mirrors top\n    print("\\n".join(lines + lines[-2::-1]))\n\nif __name__ == '__main__':\n    n = int(input())\n    print_rangoli(n)` },
+
+  { slug:"py-capitalize", title:"Capitalize!", sub:"Strings", diff:"Easy", max:20, score:20, date:"2026-04-09", time:"20:19", attempts:1,
+    desc:`Ensure that the first and last names of people begin with a capital letter in their passports.\nGiven a full name, capitalize each word appropriately — preserve the exact spacing.`,
+    code:`#!/bin/python3\nimport math, os, random, re, sys\n\ndef solve(s):\n    # split on ' ' (NOT whitespace) to preserve multiple spaces\n    return ' '.join(word.capitalize() for word in s.split(' '))\n\nif __name__ == '__main__':\n    fptr = open(os.environ['OUTPUT_PATH'], 'w')\n    s = input()\n    result = solve(s)\n    fptr.write(result + '\\n')\n    fptr.close()` },
+
+  { slug:"py-intro-sets", title:"Introduction to Sets", sub:"Sets", diff:"Easy", max:10, score:10, date:"2026-04-10", time:"19:55", attempts:1,
+    desc:`A set is an unordered collection of unique elements — useful for filtering duplicates.\nGiven the plant heights for N plants of the same type, find the average of distinct heights.`,
+    code:`def average(array):\n    # dedupe with set(), then mean\n    unique = set(array)\n    return sum(unique) / len(unique)\n\nif __name__ == '__main__':\n    n = int(input())\n    arr = list(map(int, input().split()))\n    result = average(arr)\n    print(result)` },
+
+  { slug:"py-symmetric-difference", title:"Symmetric Difference", sub:"Sets", diff:"Easy", max:10, score:10, date:"2026-04-12", time:"22:27", attempts:2,
+    desc:`Given 2 sets of integers, M and N, print their symmetric difference in ascending order.\nSymmetric difference = elements in either set but NOT in both.`,
+    code:`if __name__ == '__main__':\n    m = int(input())\n    a = set(map(int, input().split()))\n    n = int(input())\n    b = set(map(int, input().split()))\n\n    # A ^ B == symmetric_difference\n    result = sorted(a.symmetric_difference(b))\n    for x in result:\n        print(x)` }
+];
+
+const TODAY = new Date("2026-04-13");
+function parseDate(s) { return new Date(s + "T00:00:00"); }
+function daysAgo(dateStr) { return Math.round((TODAY - parseDate(dateStr)) / 86400000); }
+function fmtDate(dateStr) { return parseDate(dateStr).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }); }
+function relTime(dateStr) {
+  const n = daysAgo(dateStr);
+  if (n === 0) return "today";
+  if (n === 1) return "yesterday";
+  if (n < 7) return `${n} days ago`;
+  if (n < 30) return `${Math.floor(n / 7)} week${Math.floor(n / 7) > 1 ? "s" : ""} ago`;
+  return `${Math.floor(n / 30)} month${Math.floor(n / 30) > 1 ? "s" : ""} ago`;
+}
+
+let activeFilter = "month";
+function filterProblems(range) {
+  const cutoff = { week: 7, month: 30, "3months": 90, "6months": 180, all: 9999 }[range];
+  return PROBLEMS.filter(p => daysAgo(p.date) <= cutoff);
+}
+
+function route() {
+  const hash = window.location.hash || "#/";
+  const view = document.getElementById("view");
+  view.classList.remove("fade-in"); void view.offsetWidth; view.classList.add("fade-in");
+  if (hash.startsWith("#/problem/")) renderProblem(hash.replace("#/problem/", ""));
+  else renderDashboard();
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+
+function setFilter(f) { activeFilter = f; renderDashboard(); }
+
+function renderDashboard() {
+  const filtered = filterProblems(activeFilter);
+  const solved = filtered.length;
+  const submissions = filtered.reduce((s, p) => s + p.attempts, 0);
+  const successRate = submissions ? ((solved / submissions) * 100).toFixed(1) : 0;
+  const points = filtered.reduce((s, p) => s + p.score, 0);
+
+  const subs = { "Introduction":7, "Basic Data Types":6, "Strings":13, "Sets":2 };
+  const subsDone = {};
+  filtered.forEach(p => subsDone[p.sub] = (subsDone[p.sub] || 0) + 1);
+  const skillRows = Object.keys(subs).map(k => ({
+    name: k, done: subsDone[k] || 0, total: subs[k],
+    pct: Math.round(((subsDone[k] || 0) / subs[k]) * 100)
+  }));
+
+  const heat = [];
+  const countByDate = {};
+  PROBLEMS.forEach(p => countByDate[p.date] = (countByDate[p.date] || 0) + 1);
+  for (let i = 89; i >= 0; i--) {
+    const d = new Date(TODAY); d.setDate(d.getDate() - i);
+    const ds = d.toISOString().slice(0, 10);
+    const c = countByDate[ds] || 0;
+    heat.push({ date: ds, count: c, level: c === 0 ? 0 : c === 1 ? 2 : c === 2 ? 3 : 4 });
+  }
+
+  let streak = 0;
+  for (let i = heat.length - 1; i >= 0; i--) {
+    if (heat[i].count > 0) streak++;
+    else if (daysAgo(heat[i].date) === 0) continue;
+    else break;
+  }
+
+  const weeks = [];
+  for (let w = 5; w >= 0; w--) {
+    const end = new Date(TODAY); end.setDate(end.getDate() - w * 7);
+    const start = new Date(end); start.setDate(start.getDate() - 6);
+    const count = PROBLEMS.filter(p => {
+      const pd = parseDate(p.date);
+      return pd >= start && pd <= end;
+    }).length;
+    weeks.push({ label: `W${6 - w}`, count });
+  }
+  const maxW = Math.max(...weeks.map(w => w.count), 1);
+
+  document.getElementById("view").innerHTML = `
+    <div class="bg-[#1c1c1c] border border-neutral-800 rounded-lg p-6 mb-6">
+      <div class="flex flex-col md:flex-row gap-6">
+        <div class="flex items-start gap-4">
+          <div class="w-20 h-20 rounded-full bg-gradient-to-br from-[#00ea64] to-green-800 flex items-center justify-center text-black font-black text-2xl border-2 border-[#00ea64]">CK</div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-xl font-bold text-white">${PROFILE.name}</h1>
+              <span class="text-xs bg-[#00ea64]/10 text-[#00ea64] px-2 py-0.5 rounded font-medium">PYTHON</span>
+            </div>
+            <div class="text-sm text-[#00ea64] font-mono">@${PROFILE.handle}</div>
+            <div class="text-xs text-neutral-400 mt-1">${PROFILE.degree}</div>
+            <div class="text-xs text-neutral-500">${PROFILE.college}</div>
+            <div class="text-xs text-neutral-500">${PROFILE.year} · USN ${PROFILE.usn}</div>
+            <div class="text-xs text-neutral-600 mt-2">📍 ${PROFILE.country} · Joined ${PROFILE.joined}</div>
+          </div>
+        </div>
+        <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-3 md:border-l md:border-neutral-800 md:pl-6">
+          <div><div class="text-xs text-neutral-500 uppercase">Rank</div><div class="text-lg font-bold text-white font-mono">${PROFILE.rank.toLocaleString()}</div></div>
+          <div><div class="text-xs text-neutral-500 uppercase">Points</div><div class="text-lg font-bold text-[#00ea64] font-mono">${PROFILE.points}</div></div>
+          <div><div class="text-xs text-neutral-500 uppercase">Streak</div><div class="text-lg font-bold text-orange-400 font-mono">${streak}d</div></div>
+          <div><div class="text-xs text-neutral-500 uppercase">Solved</div><div class="text-lg font-bold text-white font-mono">${PROBLEMS.length}</div></div>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-neutral-800">
+        ${PROFILE.badges.map(b => `<span class="text-xs bg-[#00ea64]/10 text-[#00ea64] border border-[#00ea64]/30 px-2.5 py-1 rounded-full">★ ${b}</span>`).join("")}
+        <span class="text-xs bg-neutral-800 text-neutral-400 border border-neutral-700 px-2.5 py-1 rounded-full">🔥 ${streak}-day streak</span>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+      <h2 class="text-white font-bold text-lg">Progress Overview</h2>
+      <div class="flex items-center gap-1 bg-[#1c1c1c] border border-neutral-800 rounded-lg p-1 flex-wrap">
+        ${[["week","Week"],["month","Month"],["3months","3 Months"],["6months","6 Months"],["all","All Time"]].map(([k,l]) => `
+          <button onclick="setFilter('${k}')" class="px-3 py-1.5 text-xs rounded ${activeFilter === k ? 'bg-[#00ea64] text-black font-semibold' : 'text-neutral-400 hover:text-white'}">${l}</button>
+        `).join("")}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+      ${[
+        {label:"Problems Solved", val:solved, sub:`of ${PROBLEMS.length} total`, clr:"text-white"},
+        {label:"Submissions", val:submissions, sub:`${(submissions/Math.max(solved,1)).toFixed(2)} avg/problem`, clr:"text-white"},
+        {label:"Success Rate", val:successRate+"%", sub:"accepted", clr:"text-[#00ea64]"},
+        {label:"Points Earned", val:points, sub:"XP", clr:"text-[#00ea64]"}
+      ].map(s => `
+        <div class="bg-[#1c1c1c] border border-neutral-800 rounded-lg p-4">
+          <div class="text-xs text-neutral-500 uppercase tracking-wider mb-2">${s.label}</div>
+          <div class="text-2xl font-bold ${s.clr} font-mono">${s.val}</div>
+          <div class="text-xs text-neutral-600 mt-1">${s.sub}</div>
+        </div>
+      `).join("")}
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+      <div class="lg:col-span-2 bg-[#1c1c1c] border border-neutral-800 rounded-lg p-5">
+        <h3 class="text-white font-semibold mb-5 flex items-center gap-2">
+          <span class="w-1 h-4 bg-[#00ea64] rounded"></span> Python Subdomain Progress
+        </h3>
+        ${skillRows.map(s => `
+          <div class="mb-4 last:mb-0">
+            <div class="flex justify-between items-center mb-1.5">
+              <span class="text-sm text-white">${s.name}</span>
+              <span class="text-xs text-neutral-400 font-mono">${s.done} / ${s.total} · ${s.pct}%</span>
+            </div>
+            <div class="h-1.5 bg-neutral-800 rounded-full overflow-hidden">
+              <div class="bar-fill h-full bg-gradient-to-r from-[#00ea64] to-green-500 rounded-full" style="width:0%" data-w="${s.pct}"></div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+
+      <div class="bg-[#1c1c1c] border border-neutral-800 rounded-lg p-5">
+        <h3 class="text-white font-semibold mb-5 flex items-center gap-2">
+          <span class="w-1 h-4 bg-[#00ea64] rounded"></span> Last 6 Weeks
+        </h3>
+        <div class="flex items-end justify-between gap-2 h-36 mb-2">
+          ${weeks.map(w => `
+            <div class="flex flex-col items-center flex-1 gap-1 h-full justify-end">
+              <div class="text-xs text-neutral-400 font-mono">${w.count}</div>
+              <div class="w-full rounded-t ${w.count > 0 ? 'bg-[#00ea64]' : 'bg-neutral-800'}" style="height:${(w.count/maxW)*100}%;min-height:3px"></div>
+              <div class="text-xs text-neutral-500 font-mono">${w.label}</div>
+            </div>
+          `).join("")}
+        </div>
+        <div class="text-xs text-neutral-500 mt-3 pt-3 border-t border-neutral-800">Avg ${(PROBLEMS.length / 6).toFixed(1)} problems / week</div>
+      </div>
+    </div>
+
+    <div class="bg-[#1c1c1c] border border-neutral-800 rounded-lg p-5 mb-6">
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <h3 class="text-white font-semibold flex items-center gap-2">
+          <span class="w-1 h-4 bg-[#00ea64] rounded"></span> Activity · Last 90 Days
+        </h3>
+        <div class="flex items-center gap-2 text-xs text-neutral-500">
+          <span>Less</span>
+          <span class="heat-cell heat-0"></span>
+          <span class="heat-cell heat-1"></span>
+          <span class="heat-cell heat-2"></span>
+          <span class="heat-cell heat-3"></span>
+          <span class="heat-cell heat-4"></span>
+          <span>More</span>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-1">
+        ${heat.map(h => `<div class="heat-cell heat-${h.level}" title="${h.date}: ${h.count} submission${h.count !== 1 ? 's' : ''}"></div>`).join("")}
+      </div>
+      <div class="text-xs text-neutral-500 mt-3 pt-3 border-t border-neutral-800">${PROBLEMS.length} submissions in the last 90 days · Active in ${Object.keys(countByDate).length} distinct days</div>
+    </div>
+
+    <div class="bg-[#1c1c1c] border border-neutral-800 rounded-lg p-5">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-white font-semibold flex items-center gap-2">
+          <span class="w-1 h-4 bg-[#00ea64] rounded"></span> My Submissions
+        </h3>
+        <span class="text-xs text-neutral-500 font-mono">${filtered.length} result${filtered.length !== 1 ? 's' : ''}</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-xs text-neutral-500 uppercase tracking-wider border-b border-neutral-800">
+              <th class="text-left py-2 pr-4 font-medium">Problem</th>
+              <th class="text-left py-2 pr-4 font-medium hidden md:table-cell">Subdomain</th>
+              <th class="text-left py-2 pr-4 font-medium">Difficulty</th>
+              <th class="text-left py-2 pr-4 font-medium hidden md:table-cell">Score</th>
+              <th class="text-left py-2 pr-4 font-medium">Status</th>
+              <th class="text-left py-2 pr-2 font-medium">Submitted</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${[...filtered].sort((a,b) => parseDate(b.date) - parseDate(a.date)).map(p => `
+              <tr onclick="location.hash='#/problem/${p.slug}'" class="border-b border-neutral-800/50 hover:bg-neutral-800/40 cursor-pointer transition">
+                <td class="py-3 pr-4"><span class="text-[#00ea64] hover:underline font-medium">${p.title}</span></td>
+                <td class="py-3 pr-4 text-neutral-400 text-xs hidden md:table-cell">${p.sub}</td>
+                <td class="py-3 pr-4"><span class="text-xs px-2 py-0.5 rounded font-medium ${p.diff === 'Easy' ? 'text-[#00ea64] bg-[#00ea64]/10' : 'text-yellow-400 bg-yellow-500/10'}">${p.diff}</span></td>
+                <td class="py-3 pr-4 font-mono text-xs hidden md:table-cell"><span class="text-[#00ea64]">${p.score}</span><span class="text-neutral-600">/${p.max}</span></td>
+                <td class="py-3 pr-4"><span class="text-xs text-[#00ea64] font-medium">● Accepted</span></td>
+                <td class="py-3 pr-2 text-xs text-neutral-500 font-mono">${relTime(p.date)}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+      ${filtered.length === 0 ? '<div class="text-center py-8 text-neutral-500 text-sm">No submissions in this time range.</div>' : ''}
+    </div>
+  `;
+
+  setTimeout(() => {
+    document.querySelectorAll(".bar-fill").forEach(b => b.style.width = b.dataset.w + "%");
+  }, 100);
+}
+
+function renderProblem(slug) {
+  const p = PROBLEMS.find(x => x.slug === slug);
+  if (!p) { document.getElementById("view").innerHTML = '<div class="text-center py-20 text-neutral-500">Problem not found. <a href="#/" class="text-[#00ea64]">← Back</a></div>'; return; }
+
+  const idx = PROBLEMS.findIndex(x => x.slug === slug);
+  const prev = PROBLEMS[idx - 1];
+  const next = PROBLEMS[idx + 1];
+  const escCode = p.code.replace(/&/g,"&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const descHtml = p.desc.split("\n").map(l => `<p class="mb-2">${l || "&nbsp;"}</p>`).join("");
+  const runtime = (Math.random() * 0.08 + 0.02).toFixed(3);
+  const memory = (Math.random() * 3 + 9).toFixed(1);
+
+  document.getElementById("view").innerHTML = `
+    <a href="#/" class="inline-flex items-center gap-1 text-sm text-neutral-400 hover:text-[#00ea64] mb-4">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      Back to Dashboard
+    </a>
+
+    <div class="flex flex-col lg:flex-row gap-6">
+      <div class="lg:w-5/12 bg-[#1c1c1c] border border-neutral-800 rounded-lg p-6">
+        <div class="flex items-center gap-2 mb-2 flex-wrap">
+          <span class="text-xs text-neutral-500">${p.sub}</span>
+          <span class="text-neutral-700">·</span>
+          <span class="text-xs px-2 py-0.5 rounded font-medium ${p.diff === 'Easy' ? 'text-[#00ea64] bg-[#00ea64]/10' : 'text-yellow-400 bg-yellow-500/10'}">${p.diff}</span>
+          <span class="text-neutral-700">·</span>
+          <span class="text-xs text-neutral-500 font-mono">Max Score: ${p.max}</span>
+        </div>
+        <h1 class="text-2xl font-bold text-white mb-4">${p.title}</h1>
+
+        <div class="flex items-center gap-3 mb-6 pb-6 border-b border-neutral-800 flex-wrap">
+          <div class="flex items-center gap-1.5 text-xs text-[#00ea64]">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            Accepted
+          </div>
+          <span class="text-xs text-neutral-600">·</span>
+          <span class="text-xs text-neutral-400 font-mono">Score: ${p.score}/${p.max}</span>
+          <span class="text-xs text-neutral-600">·</span>
+          <span class="text-xs text-neutral-400 font-mono">${p.attempts} attempt${p.attempts > 1 ? 's' : ''}</span>
+        </div>
+
+        <div class="text-sm text-neutral-300 leading-relaxed">
+          <h3 class="text-white font-semibold mb-2">Problem</h3>
+          ${descHtml}
+        </div>
+
+        <div class="mt-6 pt-6 border-t border-neutral-800 grid grid-cols-2 gap-3 text-xs">
+          <div><div class="text-neutral-500 mb-1">Submitted</div><div class="text-neutral-300 font-mono">${fmtDate(p.date)} · ${p.time}</div></div>
+          <div><div class="text-neutral-500 mb-1">Language</div><div class="text-neutral-300 font-mono">Python 3</div></div>
+          <div><div class="text-neutral-500 mb-1">Runtime</div><div class="text-neutral-300 font-mono">${runtime}s</div></div>
+          <div><div class="text-neutral-500 mb-1">Memory</div><div class="text-neutral-300 font-mono">${memory} MB</div></div>
+        </div>
+      </div>
+
+      <div class="lg:w-7/12 bg-[#1c1c1c] border border-neutral-800 rounded-lg overflow-hidden">
+        <div class="flex items-center justify-between bg-[#0d1117] border-b border-neutral-800 px-4 py-2.5">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded bg-[#3776ab] flex items-center justify-center text-white text-xs font-bold">Py</div>
+            <span class="text-sm text-neutral-300 font-mono">solution.py</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-neutral-500">
+            <span class="flex items-center gap-1 text-[#00ea64]">● Accepted</span>
+            <span>${p.code.split("\n").length} lines</span>
+          </div>
+        </div>
+        <pre><code class="language-python">${escCode}</code></pre>
+
+        <div class="border-t border-neutral-800 p-4 bg-[#0d1117]">
+          <div class="text-xs text-neutral-500 mb-2 uppercase tracking-wider">Test Cases</div>
+          <div class="space-y-1.5">
+            ${[1,2,3,4].map(i => `
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-neutral-400 font-mono">Test Case #${i}</span>
+                <span class="flex items-center gap-1.5 text-[#00ea64]">
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                  Passed · ${(Math.random() * 0.03 + 0.001).toFixed(3)}s
+                </span>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-between mt-6 gap-3">
+      ${prev ? `<a href="#/problem/${prev.slug}" class="flex-1 bg-[#1c1c1c] border border-neutral-800 rounded-lg p-4 hover:border-[#00ea64]/40 transition">
+        <div class="text-xs text-neutral-500">← Previous</div>
+        <div class="text-sm text-white font-medium mt-0.5 truncate">${prev.title}</div>
+      </a>` : `<div class="flex-1"></div>`}
+      ${next ? `<a href="#/problem/${next.slug}" class="flex-1 bg-[#1c1c1c] border border-neutral-800 rounded-lg p-4 hover:border-[#00ea64]/40 transition text-right">
+        <div class="text-xs text-neutral-500">Next →</div>
+        <div class="text-sm text-white font-medium mt-0.5 truncate">${next.title}</div>
+      </a>` : `<div class="flex-1"></div>`}
+    </div>
+  `;
+
+  Prism.highlightAll();
+}
+
+route();
+</script>
+</body>
+</html>
